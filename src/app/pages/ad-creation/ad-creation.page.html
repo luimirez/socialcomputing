@@ -1,0 +1,131 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create New Ad</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Create New Ad</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div *ngIf="isLoading" class="ion-text-center ion-padding">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Saving property...</p>
+  </div>
+
+  <form #adForm="ngForm" (ngSubmit)="submitAd()" [hidden]="isLoading">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Title <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input
+          type="text"
+          name="title"
+          [(ngModel)]="newProperty.title"
+          required
+          #titleInput="ngModel"
+        ></ion-input>
+      </ion-item>
+      <ion-note slot="error" *ngIf="titleInput.invalid && (titleInput.dirty || titleInput.touched)">
+        Title is required.
+      </ion-note>
+
+      <ion-item>
+        <ion-label position="floating">Price <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input
+          type="number"
+          name="price"
+          [(ngModel)]="newProperty.price"
+          required
+          min="0"
+          #priceInput="ngModel"
+        ></ion-input>
+      </ion-item>
+      <ion-note slot="error" *ngIf="priceInput.invalid && (priceInput.dirty || priceInput.touched)">
+        Please enter a valid price.
+      </ion-note>
+
+      <ion-item>
+        <ion-label position="floating">Address <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input
+          type="text"
+          name="address"
+          [(ngModel)]="newProperty.address"
+          required
+          #addressInput="ngModel"
+        ></ion-input>
+      </ion-item>
+      <ion-note slot="error" *ngIf="addressInput.invalid && (addressInput.dirty || addressInput.touched)">
+        Address is required.
+      </ion-note>
+
+      <ion-item>
+        <ion-label position="floating">Description <ion-text color="danger">*</ion-text></ion-label>
+        <ion-textarea
+          name="description"
+          [(ngModel)]="newProperty.description"
+          required
+          rows="4"
+          #descriptionInput="ngModel"
+        ></ion-textarea>
+      </ion-item>
+      <ion-note slot="error" *ngIf="descriptionInput.invalid && (descriptionInput.dirty || descriptionInput.touched)">
+        Description is required.
+      </ion-note>
+
+      <ion-item>
+        <ion-label position="floating">Bedrooms</ion-label>
+        <ion-input
+          type="number"
+          name="bedrooms"
+          [(ngModel)]="newProperty.bedrooms"
+          min="0"
+        ></ion-input>
+      </ion-item>
+
+       <ion-item>
+        <ion-label position="floating">Bathrooms</ion-label>
+        <ion-input
+          type="number"
+          name="bathrooms"
+          [(ngModel)]="newProperty.bathrooms"
+          min="0"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Image URL</ion-label>
+        <ion-input
+          type="url"
+          name="imageUrl"
+          [(ngModel)]="newProperty.imageUrl"
+          placeholder="https://example.com/image.jpg"
+        ></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+         <ion-label class="ion-text-wrap ion-text-small">
+           <ion-text color="medium">
+             <small>Enter the full URL for the main property image. Actual image upload can be added later.</small>
+           </ion-text>
+         </ion-label>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-button
+      expand="block"
+      type="submit"
+      class="ion-margin-top"
+      [disabled]="adForm.invalid || isLoading"
+    >
+      <ion-icon slot="start" name="save-outline"></ion-icon>
+      Save Property Ad
+    </ion-button>
+  </form>
+
+</ion-content>

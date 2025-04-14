@@ -1,0 +1,23 @@
+// Add custom styling for property cards or list items if needed
+ion-card {
+    cursor: pointer; // Indicate cards are clickable
+    margin-bottom: 16px;
+  }
+  
+  ion-card-subtitle {
+    font-weight: bold;
+    color: var(--ion-color-primary); // Make price stand out
+    font-size: 1.1em;
+    margin-top: 4px;
+  }
+  
+  ion-chip {
+    margin-top: 8px;
+    margin-right: 6px;
+    font-size: 0.9em;
+  }
+  
+  ion-spinner {
+    margin-top: 40px; // Add space above spinner
+  }
+  

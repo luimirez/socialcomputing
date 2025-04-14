@@ -1,0 +1,87 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">RegisterPage</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div *ngIf="isLoading" class="ion text-center ion padding">
+    <ion-spinner name="cescent"></ion-spinner>
+    <p>Creating account...</p>
+  </div>
+
+  <form #registerForm="ngForm" (ngSubmit)="register()" [hidden]="isLoading">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input
+        type="email"
+        name="email"
+        [(ngModel)]="registerCredentials.email"
+        required
+        email #emailInput="ngModel"
+        autocomplete="email"
+        inputmode="email"
+        ></ion-input>
+      </ion-item>
+      <ion-note slot="error" *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
+        Please enter a valid email address.
+      </ion-note>
+
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input
+        type="password" 
+        name="password"
+        [(ngModel)]="registerCredentials.password"
+        required 
+        minlength="6" #passwordInput="ngModel"
+        ></ion-input>
+      </ion-item>
+      <ion-note slot="error" *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)">
+        Password must be at least 6 characters long.
+      </ion-note>
+
+      <ion-item>
+        <ion-label position="floating">Confirm Password</ion-label>
+        <ion-input 
+        type="password"
+        name="confirmPassword"
+        [(ngModel)]="registerCredentials.confirmPassword"
+        required
+        min-length="6" #confirmPasswordInput="ngModel"
+        ></ion-input>
+      </ion-item>
+      <ion-note slot="error" *ngIf="confirmPasswordInput.invalid && (confirmPasswordInput.dirty || confirmPasswordInput.touched)">
+        Please confirm your password.
+      </ion-note>
+      <ion-note slot="error" *ngIf="registerCredentials.password !== registerCredentials.confirmPassword && confirmPasswordInput.touched">
+        Passwords do not match
+      </ion-note>
+    </ion-list>
+
+    <ion-button
+    expand="block"
+    type="submit"
+    class="ion-margin-top"
+    [disabled]="registerForm.invalid || registerCredentials.password !== registerCredentials.confirmPassword || isLoading"
+    >
+      Create Account
+    </ion-button>
+
+  </form>
+
+  <div class="ion-text-center ion-margin-top" [hidden]="isLoading">
+    <ion-text>Already havean account?</ion-text>
+    <ion-text color="primary" (click)="goToLogin()">Log in</ion-text>
+  </div>
+</ion-content>

@@ -1,0 +1,83 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="'/property-detail/' + propertyId"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Book Viewing</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Book Viewing</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-item lines="none">
+    <ion-label>
+      <p>Booking for Property ID:</p>
+      <h2>{{ propertyId || 'Loading...' }}</h2>
+      </ion-label>
+  </ion-item>
+
+  <div *ngIf="isLoading" class="ion-text-center ion-padding">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Submitting request...</p>
+  </div>
+
+  <form #bookingForm="ngForm" (ngSubmit)="submitBooking()" [hidden]="isLoading">
+    <ion-list>
+
+      <ion-item>
+        <ion-label position="stacked">Preferred Date & Time</ion-label>
+        <ion-datetime-button datetime="datetime"></ion-datetime-button>
+
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime
+              id="datetime"
+              presentation="date-time"
+              [(ngModel)]="bookingDetails.selectedDateTime"
+              name="selectedDateTime"
+              required
+              #dateTimeInput="ngModel"
+              [min]="minDate"
+              minuteValues="0,15,30,45"
+              hourValues="9,10,11,12,13,14,15,16,17"
+              showDefaultTitle="true"
+              showDefaultButtons="true"
+            ></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+      <ion-note slot="error" 
+      *ngIf="bookingForm.form.controls['selectedDateTime']?.invalid && 
+         (bookingForm.form.controls['selectedDateTime']?.dirty || 
+          bookingForm.form.controls['selectedDateTime']?.touched)">
+        Please select a date and time.
+      </ion-note>
+
+      <ion-item>
+        <ion-label position="stacked">Optional Notes</ion-label>
+        <ion-textarea
+          [(ngModel)]="bookingDetails.notes"
+          name="notes"
+          placeholder="Any specific requests or questions?"
+          rows="3"
+        ></ion-textarea>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-button
+      expand="block"
+      type="submit"
+      class="ion-margin-top"
+      [disabled]="bookingForm.invalid || isLoading"
+    >
+      Request Viewing
+    </ion-button>
+  </form>
+
+</ion-content>

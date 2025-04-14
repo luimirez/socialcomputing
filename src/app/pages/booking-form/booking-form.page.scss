@@ -1,0 +1,15 @@
+// Add some padding when required
+ion-list {
+    margin-top: 16px;
+  }
+  
+  ion-datetime-button {
+    margin-top: 8px; // Additioning more space above the button
+  }
+  
+  ion-note[slot="error"] {
+    color: var(--ion-color-danger);
+    padding-left: 16px;
+    padding-top: 4px;
+    font-size: 0.8em;
+  }

@@ -1,0 +1,21 @@
+// Add some padding to the content area if desired
+ion-content {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+  }
+  
+  // Style the link text
+  ion-text[color="primary"] {
+    cursor: pointer; // Indicate it's clickable
+    font-weight: 500;
+  }
+  
+  // Style for validation messages
+  ion-note[slot="error"] {
+    color: var(--ion-color-danger); // Use Ionic's danger color for errors
+    padding-left: 16px; // Align with input text
+    padding-top: 4px;
+    font-size: 0.8em;
+  }
